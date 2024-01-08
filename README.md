@@ -27,10 +27,10 @@ class VideoPolicy implements Policy
         $subject,
         mixed ...$arguments
     ): Granted|Rejected {
-        match ($ability) {
+        return match ($ability) {
             'upload' => $this->upload($instance),
             default => new Rejected(new AbilityNotSupportedRejection())
-        }
+        };
     }
     
     public function upload(User $user): Granted
