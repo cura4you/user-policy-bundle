@@ -19,5 +19,10 @@ interface Policy
      * @param Instance $instance
      * @param class-string<Subject>|Subject $subject
      */
-    public function canDo($instance, string $ability, $subject, mixed ...$arguments): Granted|Rejected;
+    public function canDo(
+        object $instance,
+        string $ability,
+        object|string $subject,
+        mixed ...$arguments
+    ): Granted|Rejected;
 }

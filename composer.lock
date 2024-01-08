@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "328e80405b0ea838bc455e7c945e1a73",
+    "content-hash": "d350cd00ee900bf2b241dc4b166307da",
     "packages": [
         {
             "name": "geekcell/container-facade",
