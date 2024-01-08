@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace Cura\UserPolicyBundle\Trait;
 
 use Cura\UserPolicyBundle\Contracts\Policy;
+use Cura\UserPolicyBundle\Policy\Rejected;
+use Cura\UserPolicyBundle\Policy\Granted;
 use Cura\UserPolicyBundle\Policy\PolicyRegistry;
-use Cura\UserPolicyBundle\Policy\PolicyResult;
 use Cura\UserPolicyBundle\Support\Facade\PolicyRegistry as PolicyRegistryFacade;
 use InvalidArgumentException;
-use Stringable;
 
 trait PolicyResolverTrait
 {
     /**
      * @param class-string|object $subject
      */
-    public function can(Stringable $ability, string|object $subject, mixed ...$extraArgs): PolicyResult
+    public function can(string $ability, string|object $subject, mixed ...$extraArgs): Granted|Rejected
     {
-        return $this->resolvePolicy($subject)->canDo($this, $ability, $subject, ...$extraArgs);
+        return $this
+            ->resolvePolicy($subject)
+            ->canDo($this, $ability, $subject, ...$extraArgs);
     }
 
     /**
@@ -31,11 +33,12 @@ trait PolicyResolverTrait
         }
 
         if (!class_exists($subject)) {
-            throw new  InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf('Class %s does not exist', $subject)
             );
         }
 
+        /** @see PolicyRegistry::get() */
         $policy = PolicyRegistryFacade::get($subject);
         if (!$policy instanceof Policy) {
             throw new InvalidArgumentException(

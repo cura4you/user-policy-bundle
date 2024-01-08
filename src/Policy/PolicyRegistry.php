@@ -6,18 +6,15 @@ namespace Cura\UserPolicyBundle\Policy;
 
 use Cura\UserPolicyBundle\Contracts\Policy;
 
-
 class PolicyRegistry
 {
     /**
-     * @var array <class-string, Policy>
+     * @var array<class-string, Policy>
      */
     private array $registry = [];
 
-
     /**
      * @param class-string $class
-     * @param Policy $policy
      */
     public function register(string $class, Policy $policy): void
     {
@@ -26,7 +23,6 @@ class PolicyRegistry
 
     /**
      * @param class-string $class
-     * @return Policy|null
      */
     public function get(string $class): ?Policy
     {

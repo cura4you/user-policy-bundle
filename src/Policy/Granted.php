@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cura\UserPolicyBundle\Policy;
 
-class OkPolicyResult implements PolicyResult
+class Granted
 {
 }

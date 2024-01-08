@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Cura\UserPolicyBundle\Contracts;
 
-use Cura\UserPolicyBundle\Policy\ErrorPolicyResult;
-use Cura\UserPolicyBundle\Policy\OkPolicyResult;
-use Stringable;
+use Cura\UserPolicyBundle\Policy\Rejected;
+use Cura\UserPolicyBundle\Policy\Granted;
 
+/**
+ * @template Instance of object
+ * @template Subject of object
+ */
 interface Policy
 {
     /**
      * This function should be read as "can $instance do $ability"
-     * @param class-string|object $subject
+     *
+     * @param Instance $instance
+     * @param class-string<Subject>|Subject $subject
      */
-    public function canDo(object $instance, Stringable $ability, string|object $subject, mixed ...$arguments): OkPolicyResult|ErrorPolicyResult;
+    public function canDo($instance, string $ability, $subject, mixed ...$arguments): Granted|Rejected;
 }

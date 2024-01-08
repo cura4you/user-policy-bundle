@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GeekCell\UserPolicyBundle\Test\Fixture;
+namespace Cura\UserPolicyBundle\Test\Fixture;
 
 use Psr\Container\ContainerInterface;
 

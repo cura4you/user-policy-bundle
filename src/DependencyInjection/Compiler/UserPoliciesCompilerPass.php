@@ -18,9 +18,14 @@ class UserPoliciesCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds('cura.user_policy.policy');
         foreach ($taggedServices as $id => $tags) {
             $reflClass = $container->getReflectionClass($id);
+            if ($reflClass === null) {
+                continue;
+            }
             foreach ($reflClass->getAttributes() as $attribute) {
                 if ($attribute->getName() === AsPolicy::class) {
-                    $entityClass = $attribute->newInstance()->getSubjectClass();
+                    /** @var AsPolicy $asPolicyAttribute */
+                    $asPolicyAttribute = $attribute->newInstance();
+                    $entityClass = $asPolicyAttribute->subjectClass;
 
                     $policyRegistryService->addMethodCall('register', [$entityClass, new Reference($id)]);
                     break;

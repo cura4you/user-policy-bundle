@@ -1,0 +1,28 @@
+---
+version: 3
+
+tasks:
+
+  phpstan:
+    desc: Runs phpstan
+    cmds:
+      - php vendor/bin/phpstan
+
+  phpunit:
+    desc: Runs phpunit
+    cmds:
+      - php vendor/bin/phpunit
+
+  lint:
+    desc: Runs php cs fixer
+    cmds:
+      - php vendor/bin/php-cs-fixer fix --allow-risky=yes --config .php-cs-fixer.dist.php {{.CLI_ARGS}}
+
+
+  check:
+    desc: Runs phpstan, phpunit and linting
+    cmds:
+      - task: phpstan
+      - task: phpunit
+      - task: lint
+

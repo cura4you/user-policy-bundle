@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 class CuraUserPolicyBundle extends AbstractBundle
 {
-
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
@@ -26,11 +25,12 @@ class CuraUserPolicyBundle extends AbstractBundle
         return new CuraUserPolicyExtension();
     }
 
-
     public function boot(): void
     {
         parent::boot();
 
-        Facade::setContainer($this->container);
+        if ($this->container instanceof \Psr\Container\ContainerInterface) {
+            Facade::setContainer($this->container);
+        }
     }
 }
