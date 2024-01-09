@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cura\UserPolicyBundle\DependencyInjection\Compiler;
 
+use Cura\UserPolicyBundle\Policy\PolicyRegistry;
 use Cura\UserPolicyBundle\Support\Attribute\AsPolicy;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +14,7 @@ class UserPoliciesCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $policyRegistryService = $container->getDefinition('cura.user_policy.policy_registry');
+        $policyRegistryService = $container->getDefinition(PolicyRegistry::class);
 
         $taggedServices = $container->findTaggedServiceIds('cura.user_policy.policy');
         foreach ($taggedServices as $id => $tags) {
